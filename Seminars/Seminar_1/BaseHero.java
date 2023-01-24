@@ -1,11 +1,13 @@
 package Seminars.Seminar_1;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Random;
 
-public class BaseHero {
+public abstract class BaseHero implements BaseInterface{
 
     protected String name, role;
-    protected int attack, defence, health, speed;
+    protected int attack, defence, health, maxHealth, speed;
     protected int[] damage;
 
     public BaseHero(String name, String role, int attack, int defence, int[] damage, int health, int speed) {
@@ -14,12 +16,23 @@ public class BaseHero {
         this.attack = attack;
         this.defence = defence;
         this.damage = damage;
-        this.health = health;
+        this.maxHealth = health;
+        this.health = maxHealth - new Random().nextInt(maxHealth);
         this.speed = speed;
     }
 
     @Override
     public String toString() {
         return "Name: " + name + ", Role: " + role + ", Attack: " + attack + ", Defence: " + defence + ", Damage: " + Arrays.toString(damage) + ", Health: " + health + ", Speed: " +  speed;
+    }
+
+    @Override
+    public String getInfo() {
+        return role + " " + String.valueOf(maxHealth) + " " + String.valueOf(health) ;
+    }
+
+    @Override
+    public void step(ArrayList<BaseHero> heroList) {
+
     }
 }

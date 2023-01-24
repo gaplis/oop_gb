@@ -1,8 +1,3 @@
-/* Написать программу с семью классами, описывающими данных в таблице персонажей. 
-Для каждого создать по два конструктора	и геттеры приватных полей. 
-А также метод возвращающий строку с кратким описанием персонажа. 
-В основной программе создать списки с пятью экземплярами каждого персонажа и вывести информацию обо все в консоль. */
-
 package Seminars.Seminar_1;
 
 import java.util.ArrayList;
@@ -10,10 +5,16 @@ import java.util.Random;
 
 public class Main {
     public static void main(String[] args) {
-        ArrayList<BaseHero> heroes = new ArrayList<>();
+        ArrayList<BaseHero> heroesOne = new ArrayList<>();
+        ArrayList<BaseHero> heroesTwo = new ArrayList<>();
         Random random = new Random();
-        generateHeroes(heroes, 50, random);
-        chooseHero(heroes, "Rogue");
+        generateHeroes(heroesOne, 10, random, 1);
+        generateHeroes(heroesTwo, 10, random, 2);
+        heroesOne.forEach(n -> System.out.print(n.getInfo() + ", " + "\n"));
+        heroesOne.forEach(n -> n.step(heroesOne));
+
+        // System.out.println(heroesOne);
+        // chooseHero(heroes, "Rogue");
 
         // ArrayList<BaseHero> farmers = new ArrayList<>();
         // String[] farmersNames = {"Михаил", "Иван", "Олег", "Денис", "Владислав"};
@@ -85,32 +86,39 @@ public class Main {
         // }
     }
 
-    private static void generateHeroes(ArrayList<BaseHero> heroesList, int quantity, Random rand) {
+    private static void generateHeroes(ArrayList<BaseHero> heroesList, int quantity, Random rand, int mode) {
         String[] namesList = {"Артём", "Александр", "Михаил", "Максим", "Иван", "Даниил", "Дмитрий", "Кирилл", "Никита", "Егор", "Матвей", "Андрей", "Илья", "Алексей", "Роман", "Сергей", "Владислав", "Ярослав", "Тимофей", "Арсений", "Денис", "Владимир", "Павел", "Глеб", "Константин", "Богдан", "Евгений", "Николай", "Степан", "Захар", "Тимур", "Марк", "Семён", "Фёдор", "Георгий", "Лев", "Антон", "Вадим", "Игорь", "Руслан", "Вячеслав", "Григорий", "Макар", "Артур", "Виктор", "Станислав", "Савелий", "Олег", "Давид", "Леонид", "Пётр", "Юрий", "Виталий", "Мирон", "Василий", "Всеволод", "Елисей", "Назар", "Родион", "Марат",
                 "Платон", "Герман", "Игнат", "Святослав", "Анатолий", "Тихон", "Валерий", "Мирослав", "Ростислав", "Борис", "Филипп", "Демьян", "Гордей", "Валентин", "Демид", "Прохор", "Серафим", "Савва", "Яромир",
                 "Аркадий", "Архип", "Тарас", "Трофим"};
         int namesSize = namesList.length;
 
         for (int i = 0; i < quantity; i++){
-            int type = rand.nextInt(7);
-            switch (type){
-                case 0 -> heroesList.add(new CrossbowMan(namesList[rand.nextInt(namesSize)]));
-                case 1 -> heroesList.add(new Farmer(namesList[rand.nextInt(namesSize)]));
-                case 2 -> heroesList.add(new Mage(namesList[rand.nextInt(namesSize)]));
-                case 3 -> heroesList.add(new Monk(namesList[rand.nextInt(namesSize)]));
-                case 4 -> heroesList.add(new Rogue(namesList[rand.nextInt(namesSize)]));
-                case 5 -> heroesList.add(new Sniper(namesList[rand.nextInt(namesSize)]));
-                case 6 -> heroesList.add(new Spearman(namesList[rand.nextInt(namesSize)]));
+            int type = rand.nextInt(4);
+            if (mode == 1) {
+                switch (type){
+                    case 0 -> heroesList.add(new Farmer(namesList[rand.nextInt(namesSize)]));
+                    case 1 -> heroesList.add(new Mage(namesList[rand.nextInt(namesSize)]));
+                    case 2 -> heroesList.add(new Rogue(namesList[rand.nextInt(namesSize)]));
+                    case 3 -> heroesList.add(new Sniper(namesList[rand.nextInt(namesSize)]));
+                }
+            } else {
+                switch (type){
+                    case 0 -> heroesList.add(new Farmer(namesList[rand.nextInt(namesSize)]));
+                    case 1 -> heroesList.add(new CrossbowMan(namesList[rand.nextInt(namesSize)]));
+                    case 2 -> heroesList.add(new Monk(namesList[rand.nextInt(namesSize)]));
+                    case 3 -> heroesList.add(new Spearman(namesList[rand.nextInt(namesSize)]));
+                }
             }
 
         }
     }
-    private static void chooseHero(ArrayList<BaseHero> heroesList, String heroRole){
-        System.out.printf("List of %s roles\n", heroRole);
-        for (BaseHero hero : heroesList){
-            if (hero.toString().contains(heroRole)){
-                System.out.println(hero);
-            }
-        }
-    }
+
+    // private static void chooseHero(ArrayList<BaseHero> heroesList, String heroRole){
+    //     System.out.printf("List of %s roles\n", heroRole);
+    //     for (BaseHero hero : heroesList){
+    //         if (hero.toString().contains(heroRole)){
+    //             System.out.println(hero);
+    //         }
+    //     }
+    // }
 }
