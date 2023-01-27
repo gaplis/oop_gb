@@ -1,7 +1,6 @@
-package Seminars.Seminar_1;
+package Seminars.units;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 public class Healers extends BaseHero {
     
@@ -19,8 +18,7 @@ public class Healers extends BaseHero {
 
     @Override
     public void step(ArrayList<BaseHero> heroList) {
-        // ArrayList<Double> reduceHealth = new ArrayList<>();
-        double min = 100; // 100% здоровья
+        double min = 100; 
         int minPersentHealthPerson = 0;
         for (int i = 0; i < heroList.size(); i++) {
             String[] params = heroList.get(i).getInfo().split(" ");
@@ -31,10 +29,12 @@ public class Healers extends BaseHero {
                 minPersentHealthPerson = i;
                }
             }
-            
         }
-        // Double max = Collections.max(reduceHealth);
-        System.out.println(heroList.get(minPersentHealthPerson));
-        System.out.println(min);
+        System.out.println("Лекарь -" + this.getRole() + "- по имени " + this.getName() + " лечит персонажа " + heroList.get(minPersentHealthPerson).getName());
+    }
+
+    @Override
+    public String getType() {
+        return "Healer";
     }
 }

@@ -1,4 +1,4 @@
-package Seminars.Seminar_1;
+package Seminars.units;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -35,4 +35,19 @@ public abstract class BaseHero implements BaseInterface{
     public void step(ArrayList<BaseHero> heroList) {
 
     }
+
+    @Override
+    public String getRole() {
+        return role;
+    }
+
+    @Override
+    public String getName() {
+        return name;
+    }
+
+    public double getHealth() {
+        return (health / maxHealth) * 100;
+    }
+
 }

@@ -1,4 +1,4 @@
-package Seminars.Seminar_1;
+package Seminars.units;
 
 public class Melee extends BaseHero {
     public Melee(String name, String role, int attack, int defence, int[] damage, int health, int speed) {
@@ -8,5 +8,10 @@ public class Melee extends BaseHero {
     @Override
     public String toString() {
         return super.toString();
+    }
+
+    @Override
+    public String getType() {
+        return "Melee";
     }
 }

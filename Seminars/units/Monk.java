@@ -1,4 +1,4 @@
-package Seminars.Seminar_1;
+package Seminars.units;
 
 public class Monk extends Healers{
     public Monk(String name){

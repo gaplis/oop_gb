@@ -1,4 +1,4 @@
-package Seminars.Seminar_1;
+package Seminars.units;
 
 public class Rogue extends Melee {
     public Rogue(String name) {

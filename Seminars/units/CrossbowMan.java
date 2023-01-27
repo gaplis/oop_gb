@@ -1,4 +1,4 @@
-package Seminars.Seminar_1;
+package Seminars.units;
 
 public class CrossbowMan extends Ranged{
     int shoots;
