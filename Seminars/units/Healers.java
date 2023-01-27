@@ -30,7 +30,23 @@ public class Healers extends BaseHero {
                }
             }
         }
-        System.out.println("Лекарь -" + this.getRole() + "- по имени " + this.getName() + " лечит персонажа " + heroList.get(minPersentHealthPerson).getName());
+
+        if (min < 100) {
+            if (heroList.get(minPersentHealthPerson).health + -this.damage[0] < heroList.get(minPersentHealthPerson).maxHealth){
+                heroList.get(minPersentHealthPerson).health = heroList.get(minPersentHealthPerson).health + -this.damage[0];
+                System.out.println("Лекарь -" + this.getRole() + "- по имени " + this.getName() 
+                            + " лечит персонажа " + heroList.get(minPersentHealthPerson).getName() + " на " 
+                            + -this.damage[0] + " единиц здоровья.");
+            } else {
+                heroList.get(minPersentHealthPerson).health = heroList.get(minPersentHealthPerson).maxHealth;
+                System.out.println("Лекарь -" + this.getRole() + "- по имени " + this.getName() 
+                            + " полностью вылечил персонажа " + heroList.get(minPersentHealthPerson).getName() + ".");
+            }
+        } else {
+            System.out.println("Все персонажи здоровы, лекарю -" + this.getRole() + "- по имени " + this.getName() 
+            + " некого лечить.");
+        }
+        
     }
 
     @Override
