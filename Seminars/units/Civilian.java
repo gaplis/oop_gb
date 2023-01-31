@@ -1,11 +1,12 @@
 package Seminars.units;
 
-public class Civilian extends BaseHero{
+import java.util.ArrayList;
 
+public class Civilian extends BaseHero{
     protected boolean supply;
 
-    public Civilian(String name, String role, int attack, int defence, int[] damage, int health, int speed, boolean supply) {
-        super(name, role, attack, defence, damage, health, speed);
+    public Civilian(ArrayList<BaseHero> teamList, String role, int attack, int defence, int[] damage, int health, int speed, boolean supply, int x, int y) {
+        super(teamList, role, attack, defence, damage, health, speed, x, y);
         this.supply = supply;
     }
     

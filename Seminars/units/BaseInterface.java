@@ -7,7 +7,6 @@ public interface BaseInterface {
     void step(ArrayList<BaseHero> heroList);
     String getInfo();
     String getRole();
-    String getName();
     String getType();
 
 }
