@@ -12,9 +12,10 @@ public abstract class BaseHero implements BaseInterface{
     protected int attack, defence, health, maxHealth, speed;
     protected int[] damage;
     protected ArrayList<BaseHero> teamList;
+    protected boolean alive;
     private Vector2 position;
 
-    public BaseHero(ArrayList<BaseHero> teamList, String role, int attack, int defence, int[] damage, int health, int speed, int x, int y) {
+    public BaseHero(ArrayList<BaseHero> teamList, String role, int attack, int defence, int[] damage, int health, int speed, int x, int y, boolean alive) {
         this.teamList = teamList;
         this.role = role;
         this.attack = attack;
@@ -24,6 +25,7 @@ public abstract class BaseHero implements BaseInterface{
         this.health = maxHealth - new Random().nextInt(maxHealth);
         this.speed = speed;
         this.position = new Vector2(x, y);
+        this.alive = alive;
     }
 
     @Override
@@ -33,11 +35,15 @@ public abstract class BaseHero implements BaseInterface{
 
     @Override
     public String getInfo() {
-        return role + " | HP: " + health + "/" + maxHealth + " | DAMAGE: " + attack;
+        if (alive) {
+            return role + " | HP: " + health + "/" + maxHealth + " | DAMAGE: " + attack;
+        } else {
+            return role + " | DEAD ";
+        }
     }
 
     @Override
-    public void step(ArrayList<BaseHero> heroList) {
+    public void step(ArrayList<BaseHero> friendList, ArrayList<BaseHero> enemyList) {
 
     }
 
@@ -54,4 +60,30 @@ public abstract class BaseHero implements BaseInterface{
         return position;
     }
 
+    @Override
+    public boolean getStatus() {
+        return alive;
+    }
+
+    public int getMinimalDistance(ArrayList<BaseHero> enemyList) {
+        double distance = 100;
+        int nearestEnemyPerson = 0;
+        for (int i = 0; i < enemyList.size(); i++) {
+            double temp = Math.sqrt(Math.pow(getPosition().getX() - enemyList.get(i).getPosition().getX(), 2) 
+            + Math.pow(getPosition().getY() - enemyList.get(i).getPosition().getY(), 2));
+            if (temp < distance && enemyList.get(i).alive) {
+                distance = temp;
+                nearestEnemyPerson = i;
+               }
+        }
+        return nearestEnemyPerson;
+    }
+
+    public boolean getDamage(ArrayList<BaseHero> enemyList, int i){
+        if (this.attack > enemyList.get(i).defence) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

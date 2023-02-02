@@ -5,6 +5,13 @@ import java.util.Random;
 import java.util.Scanner;
 
 import Seminars.units.*;
+import Seminars.units.civilians.Farmer;
+import Seminars.units.healers.Mage;
+import Seminars.units.healers.Monk;
+import Seminars.units.melees.Rogue;
+import Seminars.units.melees.Spearman;
+import Seminars.units.ranges.CrossbowMan;
+import Seminars.units.ranges.Sniper;
 
 public class Main {
     public static final int GANG_SIZE = 5;
@@ -15,12 +22,13 @@ public class Main {
         init();
 
         Scanner scanner = new Scanner(System.in);
-        while (true){
-            ConsoleView.view();
+        boolean win = true;
+        while (win){
+            win = ConsoleView.view();
             System.out.println("-------------------------------------");
-            whiteSide.forEach(n -> n.step(whiteSide));
+            whiteSide.forEach(n -> n.step(whiteSide, darkSide));
             System.out.println("-------------------------------------");
-            darkSide.forEach(n -> n.step(darkSide));
+            darkSide.forEach(n -> n.step(darkSide, whiteSide));
             System.out.println("-------------------------------------");
             scanner.nextLine();
         }
@@ -62,5 +70,14 @@ public class Main {
         for (int i = 0; i < countDarkFarmer; i++) {
             darkSide.add(new Farmer(darkSide, x, y++));
         }
+    }
+
+    public static boolean checkDeathSide(ArrayList<BaseHero> side){
+        for (int i = 0; i < GANG_SIZE; i++) {
+            if (side.get(i).getStatus()) {
+                return true;
+            }
+        }
+        return false;
     }
 }

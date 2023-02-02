@@ -11,4 +11,12 @@ public class Vector2 {
         if (opposit.y == y && opposit.x == x) return true;
         return false;
     }
+
+    public int getX(){
+        return x;
+    }
+
+    public int getY(){
+        return y;
+    }
 }

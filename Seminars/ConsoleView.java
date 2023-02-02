@@ -16,33 +16,43 @@ public class ConsoleView {
             Collections.nCopies(Main.GANG_SIZE - 1,formateDiv("-h"))) + formateDiv("-i");
 
     //----------------РѕС‚СЂРёСЃРѕРІРєР° СЃС‚СЂРѕС‡РµРє РїСЃРµРІРґРѕРіСЂР°С„РёРєРё С‚Р°Р±Р»РёС†С‹ --------РєРѕРЅРµС†-----------------
-    public static void view(){
+    public static boolean view(){
+        System.out.print("\033[H\033[J");
 
-        if (ConsoleView.step == 1 ){
-            System.out.println(AnsiColors.ANSI_GREEN + "First step" + AnsiColors.ANSI_RESET);
+        if(!Main.checkDeathSide(Main.whiteSide)) {
+            System.out.println("Светлая сторона мертва, победа тёмных!");
+            return false;
+        } else if(!Main.checkDeathSide(Main.darkSide)) {
+            System.out.println("Тёмная сторона мертва, победа светлых!");
+            return false;
         } else {
-            System.out.println("Step " + step + ".");
-        }
-        step++;
-
-        System.out.println(ConsoleView.top10);
-
-        for (int i = 1; i <= Main.GANG_SIZE - 1; i++) {
-            for (int j = 1; j <= Main.GANG_SIZE; j++) {
-                System.out.print(getHeroChar(new Vector2(j,i)));
+            if (ConsoleView.step == 1 ){
+                System.out.println(AnsiColors.ANSI_GREEN + "First step" + AnsiColors.ANSI_RESET);
+            } else {
+                System.out.println("Step " + step + ".");
             }
-//            System.out.println("|");
+            step++;
+    
+            System.out.println(ConsoleView.top10);
+    
+            for (int i = 1; i <= Main.GANG_SIZE - 1; i++) {
+                for (int j = 1; j <= Main.GANG_SIZE; j++) {
+                    System.out.print(getHeroChar(new Vector2(j,i)));
+                }
+    //            System.out.println("|");
+                System.out.println();
+    //            System.out.println(Main.darkSide.get(i).getInfo());
+                System.out.println(ConsoleView.mid10);
+            }
+            for (int j = 1; j <= Main.GANG_SIZE; j++) {
+                System.out.print(getHeroChar(new Vector2(j,Main.GANG_SIZE)));
+            }
+    //        System.out.println("|");
             System.out.println();
-//            System.out.println(Main.darkSide.get(i).getInfo());
-            System.out.println(ConsoleView.mid10);
+            System.out.println(ConsoleView.bott10);
+            System.out.println("Press Enter");
+            return true;
         }
-        for (int j = 1; j <= Main.GANG_SIZE; j++) {
-            System.out.print(getHeroChar(new Vector2(j,Main.GANG_SIZE)));
-        }
-//        System.out.println("|");
-        System.out.println();
-        System.out.println(ConsoleView.bott10);
-        System.out.println("Press Enter");
 
 
     }
@@ -63,13 +73,34 @@ public class ConsoleView {
         String str = "| ";
         for (int i = 0; i < Main.GANG_SIZE; i++) {
             if (Main.darkSide.get(i).getPosition().isEquals(position)) {
-                str = "|" + AnsiColors.ANSI_BLUE + Main.darkSide.get(i).getRole().toUpperCase().charAt(0) + AnsiColors.ANSI_RESET + "|"
-                        + " ".repeat(3) + AnsiColors.ANSI_GREEN + Main.whiteSide.get(i).getInfo() + AnsiColors.ANSI_RESET
-                        + " ".repeat(5) + AnsiColors.ANSI_BLUE + Main.darkSide.get(i).getInfo() + AnsiColors.ANSI_RESET;
+                if (Main.darkSide.get(i).getStatus()) {
+                    str = "|" + AnsiColors.ANSI_BLUE + Main.darkSide.get(i).getRole().toUpperCase().charAt(0) + AnsiColors.ANSI_RESET + "|"
+                        + " ".repeat(3);
+                } else {
+                    str = "|" + AnsiColors.ANSI_RED + Main.darkSide.get(i).getRole().toUpperCase().charAt(0) + AnsiColors.ANSI_RESET + "|"
+                        + " ".repeat(3);
+                }
+
+                if (Main.whiteSide.get(i).getStatus()) {
+                    str += AnsiColors.ANSI_GREEN + Main.whiteSide.get(i).getInfo() + AnsiColors.ANSI_RESET + " ".repeat(5);
+                } else {
+                    str += AnsiColors.ANSI_RED + Main.whiteSide.get(i).getInfo() + AnsiColors.ANSI_RESET + " ".repeat(5);
+                }
+
+                if (Main.darkSide.get(i).getStatus()) {
+                    str += AnsiColors.ANSI_BLUE + Main.darkSide.get(i).getInfo() + AnsiColors.ANSI_RESET;
+                } else {
+                    str += AnsiColors.ANSI_RED + Main.darkSide.get(i).getInfo() + AnsiColors.ANSI_RESET;
+                }
+
             }
 
             if (Main.whiteSide.get(i).getPosition().isEquals(position)){
-                str = "|" + AnsiColors.ANSI_GREEN + Main.whiteSide.get(i).getRole().toUpperCase().charAt(0) + AnsiColors.ANSI_RESET;
+                if (Main.whiteSide.get(i).getStatus()) {
+                    str = "|" + AnsiColors.ANSI_GREEN + Main.whiteSide.get(i).getRole().toUpperCase().charAt(0) + AnsiColors.ANSI_RESET;
+                } else {
+                    str = "|" + AnsiColors.ANSI_RED + Main.whiteSide.get(i).getRole().toUpperCase().charAt(0) + AnsiColors.ANSI_RESET;
+                }
             }
         }
         return str;
