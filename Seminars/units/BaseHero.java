@@ -65,18 +65,22 @@ public abstract class BaseHero implements BaseInterface{
         return alive;
     }
 
-    public int getMinimalDistance(ArrayList<BaseHero> enemyList) {
+    public Vector2 getTarget(ArrayList<BaseHero> enemyList) {
         double distance = 100;
         int nearestEnemyPerson = 0;
         for (int i = 0; i < enemyList.size(); i++) {
-            double temp = Math.sqrt(Math.pow(getPosition().getX() - enemyList.get(i).getPosition().getX(), 2) 
-            + Math.pow(getPosition().getY() - enemyList.get(i).getPosition().getY(), 2));
+            double temp = Math.sqrt(Math.pow(getPosition().x - enemyList.get(i).getPosition().x, 2) 
+            + Math.pow(getPosition().y - enemyList.get(i).getPosition().y, 2));
             if (temp < distance && enemyList.get(i).alive) {
                 distance = temp;
                 nearestEnemyPerson = i;
                }
         }
-        return nearestEnemyPerson;
+        return new Vector2(distance, nearestEnemyPerson);
+    }
+
+    public void setPosition(double x, double y) {
+        this.position = new Vector2(x, y);
     }
 
     public boolean getDamage(ArrayList<BaseHero> enemyList, int i){

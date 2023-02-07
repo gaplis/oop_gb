@@ -35,7 +35,7 @@ public class Ranged extends BaseHero {
                 }
     
                 if (aliveTeam) {
-                    int nearEnemy = getMinimalDistance(enemyList);
+                    int nearEnemy = (int) getTarget(enemyList).y;
                     int attackPower;
 
                     if (getDamage(enemyList, nearEnemy)) {

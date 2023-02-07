@@ -20,10 +20,10 @@ public class ConsoleView {
         System.out.print("\033[H\033[J");
 
         if(!Main.checkDeathSide(Main.whiteSide)) {
-            System.out.println("Светлая сторона мертва, победа тёмных!");
+            System.out.println(AnsiColors.ANSI_BLUE + "Светлая сторона мертва, победа тёмных!" + AnsiColors.ANSI_RESET);
             return false;
         } else if(!Main.checkDeathSide(Main.darkSide)) {
-            System.out.println("Тёмная сторона мертва, победа светлых!");
+            System.out.println(AnsiColors.ANSI_GREEN + "Тёмная сторона мертва, победа светлых!" + AnsiColors.ANSI_RESET);
             return false;
         } else {
             if (ConsoleView.step == 1 ){

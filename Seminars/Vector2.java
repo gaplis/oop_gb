@@ -1,22 +1,19 @@
 package Seminars;
 
 public class Vector2 {
-    int x,y;
+    public double x, y;
 
-    public Vector2(int x, int y){
+    public Vector2(double x, double y) {
         this.x = x;
         this.y = y;
     }
-    public boolean isEquals(Vector2 opposit){
+
+    public boolean isEquals(Vector2 opposit) {
         if (opposit.y == y && opposit.x == x) return true;
         return false;
     }
 
-    public int getX(){
-        return x;
-    }
-
-    public int getY(){
-        return y;
+    protected Vector2 getPosition(){
+        return new Vector2(x, y);
     }
 }
