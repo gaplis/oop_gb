@@ -5,8 +5,8 @@ import java.util.ArrayList;
 public class Civilian extends BaseHero{
     protected boolean supply;
 
-    public Civilian(ArrayList<BaseHero> teamList, String role, int attack, int defence, int[] damage, int health, int speed, boolean supply, int x, int y, boolean alive) {
-        super(teamList, role, attack, defence, damage, health, speed, x, y, alive);
+    public Civilian(ArrayList<BaseHero> teamList, String role, int attack, int defence, int[] damage, int health, int speed, boolean supply, int x, int y, boolean alive, String team) {
+        super(teamList, role, attack, defence, damage, health, speed, x, y, alive, team);
         this.supply = supply;
     }
     

@@ -8,14 +8,14 @@ import Seminars.Vector2;
 
 public abstract class BaseHero implements BaseInterface{
 
-    protected String role;
+    protected String role, team;
     protected int attack, defence, health, maxHealth, speed;
     protected int[] damage;
     protected ArrayList<BaseHero> teamList;
     protected boolean alive;
     private Vector2 position;
 
-    public BaseHero(ArrayList<BaseHero> teamList, String role, int attack, int defence, int[] damage, int health, int speed, int x, int y, boolean alive) {
+    public BaseHero(ArrayList<BaseHero> teamList, String role, int attack, int defence, int[] damage, int health, int speed, int x, int y, boolean alive, String team) {
         this.teamList = teamList;
         this.role = role;
         this.attack = attack;
@@ -26,6 +26,7 @@ public abstract class BaseHero implements BaseInterface{
         this.speed = speed;
         this.position = new Vector2(x, y);
         this.alive = alive;
+        this.team = team;
     }
 
     @Override
@@ -89,5 +90,15 @@ public abstract class BaseHero implements BaseInterface{
         } else {
             return false;
         }
+    }
+
+    @Override
+    public int getSpeed() {
+        return speed;
+    }
+
+    @Override
+    public ArrayList<BaseHero> getTeam() {
+        return teamList;
     }
 }

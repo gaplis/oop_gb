@@ -7,8 +7,8 @@ import Seminars.units.Civilian;
 
 public class Farmer extends Civilian {
 
-    public Farmer(ArrayList<BaseHero> teamList, int x, int y) {
-        super(teamList, "Farmer", 1, 1, new int[]{1, 1}, 1, 3, true, x, y, true);
+    public Farmer(ArrayList<BaseHero> teamList, int x, int y, String team) {
+        super(teamList, "Farmer", 1, 1, new int[]{1, 1}, 1, 3, true, x, y, true, team);
     }
 
     @Override

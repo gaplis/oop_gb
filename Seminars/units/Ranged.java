@@ -8,8 +8,8 @@ public class Ranged extends BaseHero {
 
     int shoots;
 
-    public Ranged(ArrayList<BaseHero> teamList, String role, int attack, int defence, int[] damage, int health, int speed, int shoots, int x, int y, boolean alive) {
-        super(teamList, role, attack, defence, damage, health, speed, x, y, alive);
+    public Ranged(ArrayList<BaseHero> teamList, String role, int attack, int defence, int[] damage, int health, int speed, int shoots, int x, int y, boolean alive, String team) {
+        super(teamList, role, attack, defence, damage, health, speed, x, y, alive, team);
         this.shoots = shoots;
     }
 

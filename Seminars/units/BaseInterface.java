@@ -9,4 +9,6 @@ public interface BaseInterface {
     String getRole();
     String getType();
     boolean getStatus();
+    int getSpeed();
+    ArrayList<BaseHero> getTeam();
 }

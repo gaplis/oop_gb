@@ -1,6 +1,7 @@
 package Seminars;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -25,12 +26,26 @@ public class Main {
         boolean win = true;
         while (win){
             win = ConsoleView.view();
-            System.out.println("-------------------------------------");
-            whiteSide.forEach(n -> n.step(whiteSide, darkSide));
-            System.out.println("-------------------------------------");
-            darkSide.forEach(n -> n.step(darkSide, whiteSide));
-            System.out.println("-------------------------------------");
-            scanner.nextLine();
+            if (win) {
+                ArrayList<BaseHero> units = new ArrayList<>();
+                units.addAll(whiteSide);
+                units.addAll(darkSide);
+                Comparator<BaseHero> comparator = Comparator.comparing(BaseHero::getSpeed);
+                units.sort(comparator);
+                System.out.println("-------------------------------------");
+                for (BaseHero hero : units) {
+                    if (hero.getTeam() == whiteSide) {
+                        System.out.println("Ходит персонаж -" + hero.getRole() + "- на светлой стороне.");
+                        hero.step(whiteSide, darkSide);
+                    } else {
+                        System.out.println("Ходит персонаж -" + hero.getRole() + "- на тёмной стороне.");
+                        hero.step(darkSide, whiteSide);
+                    }
+                    System.out.println("-------------------------------------");
+                }
+                scanner.nextLine();
+            }
+            
         }
     }
 
@@ -40,35 +55,24 @@ public class Main {
 
         int x = 1;
         int y = 1;
-        int countWhiteFarmer = 0;
-        int countDarkFarmer = 0;
         for (int i = 0; i < GANG_SIZE; i++) {
             switch (new Random().nextInt(4)) {
-                case 0: countWhiteFarmer++; break; // whiteSide.add(new Farmer(whiteSide, x, y++)); 
-                case 1: whiteSide.add(new Rogue(whiteSide, x, y++)); break;
-                case 2: whiteSide.add(new Sniper(whiteSide, x, y++)); break;
-                default: whiteSide.add(new Monk(whiteSide, x, y++)); break;
+                case 0: whiteSide.add(new Farmer(whiteSide, x, y++, "White")); break;
+                case 1: whiteSide.add(new Rogue(whiteSide, x, y++, "White")); break;
+                case 2: whiteSide.add(new Sniper(whiteSide, x, y++, "White")); break;
+                default: whiteSide.add(new Monk(whiteSide, x, y++, "White")); break;
             }
-        }
-        
-        for (int i = 0; i < countWhiteFarmer; i++) {
-            whiteSide.add(new Farmer(whiteSide, x, y++));
         }
 
         x = GANG_SIZE;
         y = 1;
         for (int i = 0; i < GANG_SIZE; i++) {
-
             switch (new Random().nextInt(4)) {
-                case 0: countDarkFarmer++; break; // darkSide.add(new Farmer(darkSide, x, y++)); break;
-                case 1: darkSide.add(new Spearman(darkSide, x, y++)); break;
-                case 2: darkSide.add(new CrossbowMan(darkSide, x, y++)); break;
-                default: darkSide.add(new Mage(darkSide, x, y++)); break;
+                case 0: darkSide.add(new Farmer(darkSide, x, y++, "Dark")); break;
+                case 1: darkSide.add(new Spearman(darkSide, x, y++, "Dark")); break;
+                case 2: darkSide.add(new CrossbowMan(darkSide, x, y++, "Dark")); break;
+                default: darkSide.add(new Mage(darkSide, x, y++, "Dark")); break;
             }
-        }
-
-        for (int i = 0; i < countDarkFarmer; i++) {
-            darkSide.add(new Farmer(darkSide, x, y++));
         }
     }
 
